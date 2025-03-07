@@ -1,7 +1,7 @@
 package com.dewc.gdp_recipe_book;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-interface RecipeRepository extends JpaRepository<Recipe, Long> {
+interface RecipeRepository extends MongoRepository<Recipe, String> {
 
 }

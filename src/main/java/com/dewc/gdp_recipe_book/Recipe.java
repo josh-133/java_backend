@@ -1,33 +1,31 @@
 package com.dewc.gdp_recipe_book;
 
-import java.util.Arrays;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-
-@Entity
+@Document(collection = "recipes")
 public class Recipe {
-    private @Id @GeneratedValue Long id;
+    @Id
+    private String id;
     private String title;
-    private String[] ingredients;
+    private String ingredients;
     private String method;
 
     public Recipe() {
 
     }
 
-    public Recipe(String title, String[] ingredients, String method) {
+    public Recipe(String title, String ingredients, String method) {
         this.title = title;
         this.ingredients = ingredients;
         this.method = method;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -39,11 +37,11 @@ public class Recipe {
         this.title = title;
     }
 
-    public String[] getIngredients() {
+    public String getIngredients() {
         return ingredients;        
     }
 
-    public void setIngredients(String[] ingredients) {
+    public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -61,7 +59,7 @@ public class Recipe {
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((title == null) ? 0 : title.hashCode());
-        result = prime * result + Arrays.hashCode(ingredients);
+        result = prime * result + ((ingredients == null) ? 0 : ingredients.hashCode());
         result = prime * result + ((method == null) ? 0 : method.hashCode());
         return result;
     }
@@ -85,7 +83,7 @@ public class Recipe {
                 return false;
         } else if (!title.equals(other.title))
             return false;
-        if (!Arrays.equals(ingredients, other.ingredients))
+        if (!ingredients.equals(other.ingredients))
             return false;
         if (method == null) {
             if (other.method != null)
@@ -97,6 +95,6 @@ public class Recipe {
 
     @Override
     public String toString() {
-        return "Recipe [id=" + id + ", title=" + title + ", ingredients=" + Arrays.toString(ingredients) + ", method=" + method + "]";
+        return "Recipe [id=" + id + ", title=" + title + ", ingredients=" + ingredients + ", method=" + method + "]";
     }
 }

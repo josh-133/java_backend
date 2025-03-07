@@ -33,7 +33,7 @@ public class RecipeController {
     }
 
     @GetMapping("recipes/{id}")
-    public ResponseEntity<Recipe> getRecipeById(@PathVariable Long id) {
+    public ResponseEntity<Recipe> getRecipeById(@PathVariable String id) {
         try {
             Optional<Recipe> recipe = repository.findById(id);
             if (recipe.isEmpty()) {
@@ -55,8 +55,8 @@ public class RecipeController {
         }
 
     // UPDATE
-    @PostMapping(path = "/recipes{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity<Recipe> updateRecipe(@PathVariable Long id, @RequestBody Recipe newRecipe) {
+    @PostMapping(path = "/recipes/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity<Recipe> updateRecipe(@PathVariable String id, @RequestBody Recipe newRecipe) {
             Optional<Recipe> fetchedRecipe = repository.findById(id);
             // If Recipe does not exist in the DB
             if (fetchedRecipe.get().equals(newRecipe)) {
@@ -73,7 +73,7 @@ public class RecipeController {
 
     // DELETE
     @DeleteMapping("recipes/{id}")
-    public ResponseEntity<Recipe> deleteRecipe(@PathVariable Long id) {
+    public ResponseEntity<Recipe> deleteRecipe(@PathVariable String id) {
         Optional<Recipe> fetchedRecipe = repository.findById(id);
         if (fetchedRecipe.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
