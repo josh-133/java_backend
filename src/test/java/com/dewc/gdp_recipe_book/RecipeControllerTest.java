@@ -19,7 +19,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
+/**
+ * File to test RecipeController CRUD API requests
+ */
 @AutoConfigureMockMvc
 @WebMvcTest(RecipeController.class)
 public class RecipeControllerTest {
@@ -29,6 +31,10 @@ public class RecipeControllerTest {
     @MockBean
     private RecipeRepository recipeRepository;
 
+    /**
+     * Test getting all recipes
+     * @throws Exception if the request fails
+     */
     @Test
     void testGetRecipes() throws Exception {
         List<Recipe> recipes = Arrays.asList(
@@ -44,6 +50,10 @@ public class RecipeControllerTest {
             .andExpect(jsonPath("$[0].title").value("Spaghetti"));
     }
 
+    /**
+     * Test getting a specific recipe
+     * @throws Exception if the requests fail
+     */
     @Test
     void testGetRecipeById() throws Exception {
         Recipe recipe = new Recipe("Spaghetti", "Tomato, Pasta", "Boil pasta, add sauce");
@@ -55,6 +65,10 @@ public class RecipeControllerTest {
             .andExpect(jsonPath("$.title").value("Spaghetti"));
     }
 
+    /**
+     * Tests creating a recipe
+     * @throws Exception if the requests fails
+     */
     @Test
     void testCreateRecipe() throws Exception {
         Recipe newRecipe = new Recipe("Burger", "Burger, Bun, Patty", "Grill patty");
@@ -68,6 +82,10 @@ public class RecipeControllerTest {
                 .andExpect(jsonPath("$.title").value("Burger"));
     }
 
+    /**
+     * Tests updating a specific recipe
+     * @throws Exception if the request fails
+     */
     @Test
     void testUpdateRecipe() throws Exception {
         Recipe existingRecipe = new Recipe("Tacos", "Tortilla, Meat", "Cook meat, serve in tortilla");
@@ -83,6 +101,10 @@ public class RecipeControllerTest {
                 .andExpect(jsonPath("$.ingredients").value("Tortilla, Meat, Cheese"));
     }
 
+    /**
+     * Tests deleting a recipe
+     * @throws Exception if the request fails
+     */
     @Test
     void testDeleteRecipe() throws Exception {
         Recipe badRecipe = new Recipe("Salad", "Lettuce, Tomato", "Mix together");
